@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      partitioner-class: com.rocky.kafkaConfig.MyCustomPartitioner
+      acks: all                       # Wait for all replicas to acknowledge
+      retries: 5                      # Number of retry attempts on failure
+      batch-size: 16384              # Batch size in bytes
+      linger-ms: 5                   # Delay to allow batching (in ms)
+      buffer-memory: 33554432        # Total memory for buffering (32MB)
+      compression-type: snappy       # Compress messages (snappy/gzip/lz4/zstd)
+      enable-idempotence: true       # Avoid duplicate message sending
+      max-in-flight-requests-per-connection: 5  # Parallel in-flight messages
